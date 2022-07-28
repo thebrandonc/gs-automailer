@@ -19,7 +19,7 @@ You may add any number of variables desired to the right of the "subject" column
 
 On the second tab, insert your email template into cell A1. Include curly braces `{}` wherever you would like to insert a variable into the email. Variables will be inserted in order, from left to right (starting at `var_1` column above). It is important that the number of variable columns matches the number of curly braces in your email template.
 
-Once your spreadsheet is set up, open the Apps Script editor and paste in the script from `emailScheduler.js`. Make sure the tab names at the top of the script match the names in your spreadsheet. 
+Once your spreadsheet is set up, open the Apps Script editor and paste in the script from `autoMailer.js`. Make sure the tab names at the top of the script match the names in your spreadsheet. 
 
 Next, insert at least one recipient (with variables) into your spreadsheet for testing -- preferably using your own email address. Try testing the script with your dummy data inserted by clicking 'Run' in the editor. You will be prompted to enable some permissions so the script can access your spreadsheet, and send emails. Once the permissions are allowed, and it runs successfully, you can start populating your spreadsheet with real data. 
 

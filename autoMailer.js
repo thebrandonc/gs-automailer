@@ -19,7 +19,6 @@ function getDate(date='') {
       type: 'Error',
       msg: `Invalid date format. Recieved ${date}. Expected format: "7/14/25"`
       };
-    
     notify(msg);
   };
 };
@@ -83,12 +82,12 @@ function sendEmails() {
       recipients.forEach((recipient, i) => {
         MailApp.sendEmail(recipient[0], recipient[2], emails[i]);
         insertConfirmation(recipient[recipient.length-1]);
-        const msg = {
-          type: 'Success!',
-          msg: `${recipients.length} email(s) sent!`
-          };
-        notify(msg);
       });
+      const msg = {
+        type: 'Success!',
+        msg: `${recipients.length} email(s) sent!`
+        };
+      notify(msg);
     } catch (err) {
       const msg = {
         type: 'Error',
