@@ -2,8 +2,8 @@
 /** MAKE SURE THE TAB NAMES BELOW MATCH YOUR SPREADSHEET
 /** ------------------------------------------------------------------------------*/
 
-const contactTab = 'Sheet1';  // tab name containing contact list and variables
-const emailBodyTab = 'Sheet2';  // tab name containing email body
+const contactTab = 'Sheet1';  // tab name containing contact list and email variables
+const emailBodyTab = 'Sheet2';  // tab name containing email body template
 
 /** ------------------------------------------------------------------------------
 /** BEWARE: EDITING BELOW THIS LINE MAY BREAK THE SCRIPT
@@ -11,8 +11,8 @@ const emailBodyTab = 'Sheet2';  // tab name containing email body
 
 function getDate(date='') {
   const today = new Date();
-  const newDate = !date ? today : date;
-  return Utilities.formatDate(newDate, 'GMT', 'MM/dd/yyyy');
+  const curDate = !date ? today : date;
+  return Utilities.formatDate(curDate, 'GMT', 'MM/dd/yyyy');
 };
 
 function getSheetData(sheetName) {
@@ -28,11 +28,13 @@ function getRecipients() {
 
   const recipients = [];
   contacts.forEach((recipient, i) => {
-    const sendDate = getDate(recipient[1]);
-    if (sendDate === today) {
-      recipient.push(i+2);
-      recipients.push(recipient);
-    }
+    if (typeof recipient[1] === 'object') {  
+      const sendDate = getDate(recipient[1]);
+      if (sendDate === today) {
+        recipient.push(i+2);
+        recipients.push(recipient);
+      };
+    };
   });
   return recipients;
 };
