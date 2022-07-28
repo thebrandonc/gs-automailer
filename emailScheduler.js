@@ -10,9 +10,18 @@ const emailBodyTab = 'Sheet2';  // tab name containing email body template
 /** ------------------------------------------------------------------------------*/
 
 function getDate(date='') {
-  const today = new Date();
-  const curDate = !date ? today : date;
-  return Utilities.formatDate(curDate, 'GMT', 'MM/dd/yyyy');
+  try {
+    const today = new Date();
+    const curDate = !date ? today : date;
+    return Utilities.formatDate(curDate, 'GMT', 'MM/dd/yyyy');
+  } catch(err) {
+    const msg = {
+      type: 'Error',
+      msg: `Invalid date format. Recieved ${date}. Expected format: "7/14/25"`
+      };
+    
+    notify(msg);
+  };
 };
 
 function getSheetData(sheetName) {
@@ -28,12 +37,20 @@ function getRecipients() {
 
   const recipients = [];
   contacts.forEach((recipient, i) => {
-    if (typeof recipient[1] === 'object') {  
-      const sendDate = getDate(recipient[1]);
-      if (sendDate === today) {
-        recipient.push(i+2);
-        recipients.push(recipient);
+    try {
+      if (typeof recipient[1] === 'object') {  
+        const sendDate = getDate(recipient[1]);
+        if (sendDate === today) {
+          recipient.push(i+2);
+          recipients.push(recipient);
+        };
       };
+    } catch (err) {
+      const msg = {
+        type: 'Error',
+        msg: `Error occured on: ${recipient}. ${err}`
+      };
+      notify(msg);
     };
   });
   return recipients;
@@ -42,6 +59,7 @@ function getRecipients() {
 function composeEmails(recipients) {
   const email = getSheetData(emailBodyTab)[0][0];
   const emails = [];
+  
   recipients.forEach(recipient => {
     let tempEmail = email.split(" ");
     let placeholders = 0;
@@ -56,21 +74,59 @@ function composeEmails(recipients) {
   return emails;
 };
 
+function sendEmails() {
+  const recipients = getRecipients();
+  const emails = composeEmails(recipients);
+  
+  if (recipients) {
+    try {
+      recipients.forEach((recipient, i) => {
+        MailApp.sendEmail(recipient[0], recipient[2], emails[i]);
+        insertConfirmation(recipient[recipient.length-1]);
+        const msg = {
+          type: 'Success!',
+          msg: `${recipients.length} email(s) sent!`
+          };
+        notify(msg);
+      });
+    } catch (err) {
+      const msg = {
+        type: 'Error',
+        msg: err
+      };
+      notify(msg);
+    };
+  };
+  if (recipients.length === 0) {
+    const msg = {
+      type: 'Complete',
+      msg: 'No emails were sent.'
+      };
+    notify(msg);
+  };
+};
+
 function insertConfirmation(row) {
   const doc = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = doc.getSheetByName(contactTab);
   const cellLocation = `B${row}`;
   const cell = sheet.getRange(cellLocation);
-  const confirmation = `Email sent on: ${getDate()}`;
+  const confirmation = `Sent on: ${new Date()}`;
   cell.setValue(confirmation);
 };
 
-function sendEmails() {
-  const recipients = getRecipients();
-  const emails = composeEmails(recipients);
-  
-  recipients.forEach((recipient, i) => {
-    MailApp.sendEmail(recipient[0], recipient[2], emails[i]);
-    insertConfirmation(recipient[recipient.length-1]);
-  });
+function onOpen() {
+  const ui = SpreadsheetApp.getUi();
+  ui.createMenu('Auto Mailer')
+      .addItem('Send Emails', 'sendEmails')
+      .addToUi();
+};
+
+function notify(event) {
+  const ui = SpreadsheetApp.getUi();
+
+  ui.alert(
+     event.type,
+     event.msg,
+      ui.ButtonSet.OK);
 };
