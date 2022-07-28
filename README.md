@@ -3,6 +3,8 @@
 
 This repo contains a script that let's you schedule and send bulk emails from Google Sheets. Each email is generated based on a template, which can be tailored to individual recipients through the use of variables.
 
+**DISCLAIMER:** Please use this script responsibly. It is intended to be used as a productivity tool for those without sufficient resources for paid solutions. I've been there. Please avoid spammy behavior.
+
 ## Getting Started
 
 To use this script, create a new Google Sheet with two tabs. The first tab should contain your contact list, and the first `3` columns need to adhere to the following format: 
