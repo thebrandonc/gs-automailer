@@ -3,7 +3,7 @@
 /** ------------------------------------------------------------------------------*/
 
 const contactTab = 'Sheet1';  // tab name containing contact list and email variables
-const emailBodyTab = 'Sheet2';  // tab name containing the email body template
+const emailBodyTab = 'Sheet2';  // tab name containing email body template
 
 /** ------------------------------------------------------------------------------
 /** BEWARE: EDITING BELOW THIS LINE MAY BREAK THE SCRIPT
