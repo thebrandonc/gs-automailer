@@ -116,8 +116,8 @@ function insertConfirmation(row) {
 
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
-  ui.createMenu('Auto Mailer')
-      .addItem('Send Emails', 'sendEmails')
+  ui.createMenu('🤖 Auto Mailer')
+      .addItem('📬 Send Emails', 'sendEmails')
       .addToUi();
 };
 

@@ -27,7 +27,7 @@ Next, insert at least one recipient (with variables) into your spreadsheet for t
 
 To run the script, either set up set up a trigger to run daily, or select the "Send Emails" option from the "Auto Mailer" dropdown menu in your spreadsheet.
 
-To learn more about how to use this script, watch the Youtube tutorial here: [Check out the Tutorial](https://youtu.be/R7T20_nlvbk)
+To learn more about how to use this script, watch the YouTube tutorial here: [Check out the Tutorial](https://youtu.be/GWnCoA3seVI)
 
 <!-- LICENSE -->
 ## License
