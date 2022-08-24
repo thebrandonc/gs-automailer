@@ -5,6 +5,8 @@ This repo contains a script that let's you schedule and send bulk emails from Go
 
 **DISCLAIMER:** Please use this script responsibly. It is intended to be used as a productivity tool for those without sufficient resources for paid solutions. I've been there. Please avoid spammy behavior.
 
+To learn more about how to use this script, watch the YouTube tutorial here: [Check out the Tutorial](https://youtu.be/GWnCoA3seVI)
+
 ## Getting Started
 
 To use this script, create a new Google Sheet with two tabs. The first tab should contain your contact list, and the first `3` columns need to adhere to the following format: 
@@ -26,8 +28,6 @@ Once your spreadsheet is set up, open the Apps Script editor and paste in the sc
 Next, insert at least one recipient (with variables) into your spreadsheet for testing -- preferably using your own email address. Try testing the script with your dummy data inserted by clicking 'Run' in the editor. You will be prompted to enable some permissions so the script can access your spreadsheet, and send emails. Once the permissions are allowed, and it runs successfully, you can start populating your spreadsheet with real data. 
 
 To run the script, either set up set up a trigger to run daily, or select the "Send Emails" option from the "Auto Mailer" dropdown menu in your spreadsheet.
-
-To learn more about how to use this script, watch the YouTube tutorial here: [Check out the Tutorial](https://youtu.be/GWnCoA3seVI)
 
 <!-- LICENSE -->
 ## License
